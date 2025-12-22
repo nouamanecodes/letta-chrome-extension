@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Letta</title>
+    <link href="onboarding.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Step 1: Welcome -->
+      <div class="step" id="step1">
+        <div class="step-content">
+          <div class="logo">
+            <svg width="48" height="48" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Letta logo">
+              <path d="M13.2017 8.80036H8.80133V13.2002H13.2017V8.80036Z" fill="currentColor"></path>
+              <path d="M17.6019 2.99742V0H4.40033V2.99742C4.40033 3.77228 3.77267 4.39988 2.99773 4.39988H0V17.6001H2.99773C3.77267 17.6001 4.40033 18.2277 4.40033 19.0026V22H17.6019V19.0026C17.6019 18.2277 18.2296 17.6001 19.0045 17.6001H22.0023V4.39988H19.0045C18.2296 4.39988 17.6019 3.77228 17.6019 2.99742ZM17.6019 16.1971C17.6019 16.9719 16.9743 17.5995 16.1993 17.5995H5.80355C5.0286 17.5995 4.40094 16.9719 4.40094 16.1971V5.80234C4.40094 5.02747 5.0286 4.39988 5.80355 4.39988H16.1993C16.9743 4.39988 17.6019 5.02747 17.6019 5.80234V16.1971Z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h1>Welcome to Letta</h1>
+          <p class="subtitle">Add persistent memory to your AI conversations</p>
+          
+          <div class="features">
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 22 22" fill="currentColor" aria-hidden="true">
+                  <path d="M13.2017 8.80036H8.80133V13.2002H13.2017V8.80036Z"></path>
+                  <path d="M17.6019 2.99742V0H4.40033V2.99742C4.40033 3.77228 3.77267 4.39988 2.99773 4.39988H0V17.6001H2.99773C3.77267 17.6001 4.40033 18.2277 4.40033 19.0026V22H17.6019V19.0026C17.6019 18.2277 18.2296 17.6001 19.0045 17.6001H22.0023V4.39988H19.0045C18.2296 4.39988 17.6019 3.77228 17.6019 2.99742ZM17.6019 16.1971C17.6019 16.9719 16.9743 17.5995 16.1993 17.5995H5.80355C5.0286 17.5995 4.40094 16.9719 4.40094 16.1971V5.80234C4.40094 5.02747 5.0286 4.39988 5.80355 4.39988H16.1993C16.9743 4.39988 17.6019 5.02747 17.6019 5.80234V16.1971Z"></path>
+                </svg>
+              </div>
+              <span>Works with ChatGPT, Claude, Gemini & more</span>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <span>Your data stays private in your Letta account</span>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <span>Setup takes less than 2 minutes</span>
+            </div>
+          </div>
+          
+          <button class="btn-primary" id="startBtn">Get Started</button>
+        </div>
+      </div>
+
+      <!-- Step 2: API Key -->
+      <div class="step hidden" id="step2">
+        <div class="step-content">
+          <div class="step-header">
+            <span class="step-number">Step 1 of 2</span>
+            <h2>Connect your Letta account</h2>
+            <p>Enter your API key to connect</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="apiKey">API Key</label>
+            <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" />
+            <div class="help-text">
+              <a href="https://app.letta.com/api-keys" target="_blank" rel="noopener noreferrer">Get your API key from Letta Dashboard</a>
+            </div>
+          </div>
+          
+          <div id="apiKeyError" class="error-message hidden"></div>
+          
+          <div class="button-group">
+            <button class="btn-secondary" id="back1Btn">Back</button>
+            <button class="btn-primary" id="validateBtn">
+              <span class="btn-text">Continue</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Create Agent -->
+      <div class="step hidden" id="step3">
+        <div class="step-content">
+          <div class="step-header">
+            <span class="step-number">Step 2 of 2</span>
+            <h2>Create your memory agent</h2>
+            <p>This agent will store and manage your memories</p>
+          </div>
+          
+          <div class="agent-preview">
+            <div class="agent-icon">
+              <svg width="32" height="32" viewBox="0 0 22 22" fill="currentColor" aria-hidden="true">
+                <path d="M13.2017 8.80036H8.80133V13.2002H13.2017V8.80036Z"></path>
+                <path d="M17.6019 2.99742V0H4.40033V2.99742C4.40033 3.77228 3.77267 4.39988 2.99773 4.39988H0V17.6001H2.99773C3.77267 17.6001 4.40033 18.2277 4.40033 19.0026V22H17.6019V19.0026C17.6019 18.2277 18.2296 17.6001 19.0045 17.6001H22.0023V4.39988H19.0045C18.2296 4.39988 17.6019 3.77228 17.6019 2.99742ZM17.6019 16.1971C17.6019 16.9719 16.9743 17.5995 16.1993 17.5995H5.80355C5.0286 17.5995 4.40094 16.9719 4.40094 16.1971V5.80234C4.40094 5.02747 5.0286 4.39988 5.80355 4.39988H16.1993C16.9743 4.39988 17.6019 5.02747 17.6019 5.80234V16.1971Z"></path>
+              </svg>
+            </div>
+            <div class="agent-info">
+              <span class="agent-name">Letta Memory Agent</span>
+              <span class="agent-desc">Captures and organizes your conversations</span>
+            </div>
+          </div>
+          
+          <div class="memory-blocks">
+            <div class="block-item">
+              <span class="block-name">user_context</span>
+              <span class="block-desc">Your background & preferences</span>
+            </div>
+            <div class="block-item">
+              <span class="block-name">facts</span>
+              <span class="block-desc">Important facts & details</span>
+            </div>
+            <div class="block-item">
+              <span class="block-name">active_topics</span>
+              <span class="block-desc">Current projects & interests</span>
+            </div>
+          </div>
+          
+          <div id="createError" class="error-message hidden"></div>
+          
+          <div class="button-group">
+            <button class="btn-secondary" id="back2Btn">Back</button>
+            <button class="btn-primary" id="createBtn">
+              <span class="btn-text">Create Agent</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Success -->
+      <div class="step hidden" id="step4">
+        <div class="step-content center">
+          <div class="success-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-label="Success checkmark">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h2>You're all set!</h2>
+          <p class="subtitle">Letta is now capturing your conversations</p>
+          
+          <div class="next-steps">
+            <div class="next-step">
+              <span class="step-icon">1</span>
+              <span>Visit ChatGPT, Claude, or any supported platform</span>
+            </div>
+            <div class="next-step">
+              <span class="step-icon">2</span>
+              <span>Start chatting - your conversations are automatically captured</span>
+            </div>
+            <div class="next-step">
+              <span class="step-icon">3</span>
+              <span>Your AI will remember everything over time</span>
+            </div>
+          </div>
+          
+          <div class="button-group">
+            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="btn-primary">Open ChatGPT</a>
+            <button class="btn-secondary" id="settingsBtn">Open Settings</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress dots -->
+      <div class="progress-dots">
+        <span class="dot active" data-step="1"></span>
+        <span class="dot" data-step="2"></span>
+        <span class="dot" data-step="3"></span>
+        <span class="dot" data-step="4"></span>
+      </div>
+    </div>
+
+    <script src="onboarding.js"></script>
+  </body>
+</html>

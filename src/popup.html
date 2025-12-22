@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Letta Settings</title>
+    <link href="popup.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <div class="logo-area">
+          <svg
+            class="logo-icon"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M13.2017 8.80036H8.80133V13.2002H13.2017V8.80036Z" fill="currentColor"></path>
+            <path
+              d="M17.6019 2.99742V0H4.40033V2.99742C4.40033 3.77228 3.77267 4.39988 2.99773 4.39988H0V17.6001H2.99773C3.77267 17.6001 4.40033 18.2277 4.40033 19.0026V22H17.6019V19.0026C17.6019 18.2277 18.2296 17.6001 19.0045 17.6001H22.0023V4.39988H19.0045C18.2296 4.39988 17.6019 3.77228 17.6019 2.99742ZM17.6019 16.1971C17.6019 16.9719 16.9743 17.5995 16.1993 17.5995H5.80355C5.0286 17.5995 4.40094 16.9719 4.40094 16.1971V5.80234C4.40094 5.02747 5.0286 4.39988 5.80355 4.39988H16.1993C16.9743 4.39988 17.6019 5.02747 17.6019 5.80234V16.1971Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          <span class="logo-text">Letta</span>
+        </div>
+        <div class="header-status">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText" class="status-text">Offline</span>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="settings-scroll">
+        <!-- Connection Section -->
+        <section class="settings-section">
+          <div class="section-header">
+            <span class="section-title">Connection</span>
+          </div>
+
+          <div class="field-group">
+            <label for="apiKey">API Key</label>
+              <a href="https://app.letta.com/api-keys" target="_blank" rel="noopener noreferrer">Get your API key</a>
+              <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" />
+              <button id="testBtn" class="btn-icon" title="Test connection">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </button>
+            </div>
+            <div class="api-key-help">
+              <a href="https://app.letta.com/api-keys" target="_blank">Get your API key</a>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="agentSelect">Agent</label>
+            <div class="input-row">
+              <select id="agentSelect" class="agent-select">
+                <option value="">Select an agent...</option>
+              </select>
+              <a href="https://app.letta.com" target="_blank" rel="noopener noreferrer">Dashboard</a>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                  <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                  <path d="M16 21h5v-5" />
+                </svg>
+              </button>
+              <button id="createAgentBtn" class="btn-icon" title="Create new agent">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </button>
+            </div>
+            <div class="api-key-help">
+              <span id="agentCount">0 agents</span> |
+              <a href="https://app.letta.com" target="_blank">Dashboard</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Capture Section -->
+        <section class="settings-section">
+          <div class="section-header">
+            <span class="section-title">Platforms</span>
+          </div>
+
+          <div class="checkbox-group compact">
+            <label class="checkbox-label">
+              <input type="checkbox" data-platform="chatgpt" checked />
+              <span class="checkmark"></span>
+              <span>ChatGPT</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" data-platform="claude" />
+              <span class="checkmark"></span>
+              <span>Claude</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" data-platform="perplexity" />
+              <span class="checkmark"></span>
+              <span>Perplexity</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" data-platform="gemini" />
+              <span class="checkmark"></span>
+              <span>Gemini</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Memory Blocks Section -->
+        <section class="settings-section">
+          <div class="section-header">
+            <span class="section-title">Memory Blocks</span>
+            <button id="refreshBlocksBtn" class="btn-icon-small" title="Refresh blocks">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M16 21h5v-5" />
+              </svg>
+            </button>
+          </div>
+          <div id="blocksContainer" class="blocks-list">
+            <span class="blocks-placeholder">Select an agent to load blocks</span>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer>
+        <button id="saveBtn" class="btn-primary">Save Settings</button>
+        <div class="footer-links">
+          <a href="https://docs.letta.com" target="_blank" rel="noopener noreferrer">Docs</a>
+          <span class="divider">|</span>
+          <a href="https://app.letta.com" target="_blank" rel="noopener noreferrer">Dashboard</a>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

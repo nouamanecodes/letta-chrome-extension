@@ -1,0 +1,148 @@
+<!-- File: src/overview.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Letta - Overview</title>
+    <link href="overview.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo-area">
+          <!-- Letta Star Icon -->
+          <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L14.09 8.26L20 9.27L15.5 13.14L16.82 19.02L12 16.27L7.18 19.02L8.5 13.14L4 9.27L9.91 8.26L12 2Z" fill="#e85d5d" stroke="#e85d5d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h1>Letta</h1>
+          <span class="badge">BETA</span>
+        </div>
+        <button id="logoutBtn" class="icon-btn" title="Disconnect">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </button>
+      </header>
+
+      <main>
+        <!-- Agent Info Section -->
+        <section class="agent-section">
+          <div class="section-header">
+            <h2>Agent</h2>
+            <button id="refreshBtn" class="icon-btn small" title="Refresh data">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-info">
+              <p class="agent-label">Name</p>
+              <p class="agent-value" id="agentName">-</p>
+            </div>
+            <div class="agent-info">
+              <p class="agent-label">ID</p>
+              <p class="agent-value mono" id="agentId">-</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="settings-section">
+          <h2>ChatGPT Settings</h2>
+          <div class="settings-card">
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="messageInterval">Context Refresh Interval</label>
+                <small>Auto-prompt to inject context every N messages (0 = disabled)</small>
+              </div>
+              <div class="setting-control">
+                <input
+                  type="number"
+                  id="messageInterval"
+                  value="10"
+                  min="0"
+                  max="100"
+                  class="setting-input"
+                />
+                <button id="saveIntervalBtn" class="btn-small">Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Context Injection Settings -->
+        <section class="settings-section">
+          <h2>Context Injection</h2>
+          <p class="section-description">Select which memory blocks to include when injecting context into ChatGPT</p>
+          <div class="settings-card">
+            <div id="blockSelectionContainer" class="block-selection">
+              <p class="loading-text">Loading blocks...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Model Selection Section -->
+        <section class="model-section">
+          <h2>Model Configuration</h2>
+          <div class="model-selector">
+            <label for="modelSelect">Current Model</label>
+            <div class="select-wrapper">
+              <select id="modelSelect" class="model-select">
+                <option value="">Loading models...</option>
+              </select>
+            </div>
+            <button id="updateModelBtn" class="btn-secondary" disabled>
+              Update Model
+            </button>
+          </div>
+        </section>
+
+        <!-- Memory Blocks Section -->
+        <section class="memory-section">
+          <h2>Memory Blocks</h2>
+          <div id="memory-blocks-container" class="memory-blocks">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Loading memory blocks...</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="connection-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Connected</span>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="overview.js"></script>
+  </body>
+</html>
