@@ -29,6 +29,7 @@ import {
   extractUserMessage,
   resetInjectionState,
 } from "./utils/memory-injection";
+import { searchMemoryBlocks } from "./utils/memory-search";
 
 // --- State ---
 let apiService: LettaAPIService | null = null;
@@ -189,12 +190,26 @@ async function refreshBlocks(): Promise<void> {
 }
 
 // --- Memory Injection ---
-function injectMemories(): void {
+
+/**
+ * Get enabled blocks from settings
+ */
+function getEnabledBlocks(): MemoryBlock[] {
+  const enabledLabels = settings?.enabledBlocks || [];
+  return enabledLabels.length > 0
+    ? cachedBlocks.filter(b => enabledLabels.includes(b.label))
+    : cachedBlocks;
+}
+
+/**
+ * Inject ALL enabled memory blocks (Shift+click behavior)
+ */
+function injectAllMemories(): void {
   if (cachedBlocks.length === 0) {
     showToast("No memory blocks available - refreshing...");
     refreshBlocks().then(() => {
       if (cachedBlocks.length > 0) {
-        injectMemories(); // Retry after refresh
+        injectAllMemories(); // Retry after refresh
       } else {
         showToast("No memory blocks found", "error");
       }
@@ -202,12 +217,7 @@ function injectMemories(): void {
     return;
   }
 
-  // Filter by enabled blocks from settings
-  const enabledLabels = settings?.enabledBlocks || [];
-  const blocksToInject =
-    enabledLabels.length > 0
-      ? cachedBlocks.filter(b => enabledLabels.includes(b.label))
-      : cachedBlocks; // If no enabled blocks set, use all
+  const blocksToInject = getEnabledBlocks();
 
   if (blocksToInject.length === 0) {
     showToast("No blocks enabled - check popup settings");
@@ -221,6 +231,59 @@ function injectMemories(): void {
     showToast(`Added ${blocksToInject.length} memory blocks`, "success");
   } else {
     log.error("Memory injection failed");
+    showToast("Failed to inject memories", "error");
+  }
+}
+
+/**
+ * Smart inject - uses semantic search to find relevant blocks (single click behavior)
+ * Falls back to all blocks if input is empty or no matches found
+ */
+function injectSmartMemories(): void {
+  if (cachedBlocks.length === 0) {
+    showToast("No memory blocks available - refreshing...");
+    refreshBlocks().then(() => {
+      if (cachedBlocks.length > 0) {
+        injectSmartMemories(); // Retry after refresh
+      } else {
+        showToast("No memory blocks found", "error");
+      }
+    });
+    return;
+  }
+
+  const enabledBlocks = getEnabledBlocks();
+
+  if (enabledBlocks.length === 0) {
+    showToast("No blocks enabled - check popup settings");
+    return;
+  }
+
+  // Get current input text for semantic search
+  const inputText = extractUserMessage();
+
+  // If no input text, fall back to all blocks
+  if (!inputText?.trim()) {
+    log.debug("No input text, falling back to all blocks");
+    injectAllMemories();
+    return;
+  }
+
+  // Search for relevant blocks (excludes conversation_patterns)
+  const relevantBlocks = searchMemoryBlocks(enabledBlocks, inputText);
+
+  if (relevantBlocks.length === 0) {
+    showToast("No relevant memories found", "info");
+    return;
+  }
+
+  const success = doInjectMemories(relevantBlocks);
+
+  if (success) {
+    log.success(`Smart injected ${relevantBlocks.length} relevant memories`);
+    showToast(`Added ${relevantBlocks.length} relevant memories`, "success");
+  } else {
+    log.error("Smart memory injection failed");
     showToast("Failed to inject memories", "error");
   }
 }
@@ -321,8 +384,8 @@ function createLettaButton(): { root: HTMLElement; button: HTMLButtonElement } {
   const button = document.createElement("button");
   button.id = "letta-icon-button";
   button.type = "button";
-  button.title = "Add Letta Memory";
-  button.setAttribute("aria-label", "Add Letta memories to your prompt");
+  button.title = "Add relevant memories (Shift+click for all)";
+  button.setAttribute("aria-label", "Add Letta memories to your prompt. Hold Shift for all blocks.");
 
   // Icon button styles - small with grey backdrop
   button.style.cssText = `
@@ -360,7 +423,14 @@ function createLettaButton(): { root: HTMLElement; button: HTMLButtonElement } {
   button.addEventListener("click", e => {
     e.preventDefault();
     e.stopPropagation();
-    injectMemories();
+    
+    if (e.shiftKey) {
+      // Shift+click: inject all enabled blocks
+      injectAllMemories();
+    } else {
+      // Single click: smart inject based on input content
+      injectSmartMemories();
+    }
   });
 
   root.appendChild(button);
